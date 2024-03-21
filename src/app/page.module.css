@@ -18,3 +18,15 @@
   margin: 11px;
 }
 
+.login{
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.input{
+  margin: 15px;
+}
+
+

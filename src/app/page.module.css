@@ -1,20 +1,158 @@
+.header {
+  width: 100%;
+
+}
+
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5rem;
-  min-height: 100vh;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 2rem;
+  min-height: 90vh;
+  width: 100%;
+  /* background-color: aqua; */
+  margin-left: 25px;
+  margin-right: 25px;
 }
-
-.nav{
+.authMain {
   display: flex;
-  padding: 16px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-height: 90vh;
+  width: 100%;
+}
+
+.nav {
+  display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: var(--bike-orange);
+  width: 100%;
+  text-align: center;
+  height: 5rem;
+  /* border: 1px solid lime; */
 }
 
-.navItem{
-  margin: 11px;
+.logo {
+  margin-left: 11px;
+  margin-right: 11px;
 }
 
+.navLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  padding: .5rem;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin: 5px; */
+  padding: .5rem;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.navItem:hover {
+  background-color: #fbc067;
+
+}
+
+.currentPath {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .5rem;
+  /* margin: 5px; */
+  background-color: var(--bike-blue);
+  color: var(--bike-white);
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.currentPath:hover {
+  background-color: #4083b3;
+}
+
+.section {
+  color: black;
+
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 25px;
+  /* background-color: aqua; */
+  width: 100%;
+}
+
+.columnWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  /* background-color: lime; */
+  padding: .5rem;
+
+}
+
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 75%;
+  /* background-color: orange; */
+  padding: .5rem;
+
+
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 50%;
+  /* background-color: blueviolet; */
+  padding: .5rem;
+
+
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  /* background-color: blueviolet; */
+  margin-top: 10px;
+  padding: .25rem;
+  width: 100%;
+}
+
+
+
+.customTextField textarea::placeholder{
+  font-weight: 500;
+  opacity: .5;
+
+}

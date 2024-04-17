@@ -17,6 +17,7 @@ import Box from "@mui/material/Box";
 
 import CreateChallengeForm from "@/components/CreateChallengeForm/CreateChallengeForm";
 import ActiveChallengesView from "@/components/ActiveChallengesView/ActiveChallengesView";
+import PastChallengesView from "@/components/PastChallengesView/PastChallengesView";
 
 import NavLayout from "@/components/NavLayout/NavLayout";
 import {
@@ -114,7 +115,7 @@ function Challenges() {
 					</TabView>
 
 					<TabView value={value} index={2}>
-						{/* <ViewComponent /> */}
+						<PastChallengesView />
 					</TabView>
 		</NavLayout>
 	);

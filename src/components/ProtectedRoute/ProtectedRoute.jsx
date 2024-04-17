@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname, redirect } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { supabase } from "@/utils/supabase/supabase";
@@ -7,43 +7,21 @@ import { supabase } from "@/utils/supabase/supabase";
 import { getUserQuery } from "@/redux/thunks/userThunk";
 import { setIsAuthenticated, clearAuth } from "@/redux/slices/authSlice";
 
-import LoginForm from "../LoginForm/LoginForm";
-
-export default function ProtectedRoute(Component){
-	return function useAuth(props){
-		const router = useRouter()
+export default function ProtectedRoute(Component) {
+	return function useAuth(props) {
+		const router = useRouter();
+		const path = usePathname();
 		const dispatch = useDispatch();
 		const user = useSelector((store) => store.user);
 		const auth = useSelector((store) => store.auth);
-
 		useEffect(() => {
-			const authenticate = () => {
-				const { data } = supabase.auth.onAuthStateChange(
-					(event, session) => {
-						if (
-							event === "INITIAL_SESSION" ||
-							event === "SIGNED_IN"
-						) {
-							if (session) {
-								dispatch(getUserQuery(session.user.id));
-								if (user.is_admin) {
-									dispatch(
-										setIsAuthenticated({ isAuthenticated:true,
-											user_id: session.user.id,
-										})
-									);
-								}
-							} else {
-								router.push("/");
-							}
-						} else if (event === "SIGNED_OUT") {
-							dispatch(clearAuth());
-							router.push("/");
-						} else if (
-							event === "PASSWORD_RECOVERY" ||
-							event === "TOKEN_REFRESHED" ||
-							event === "USER_UPDATED"
-						) {
+			let timeoutId;
+			const { data } = supabase.auth.onAuthStateChange(
+				(event, session) => {
+					clearTimeout(timeoutId);
+					if (event === "INITIAL_SESSION" || event === "SIGNED_IN") {
+						if (session) {
+							dispatch(getUserQuery(session.user.id));
 							if (user.is_admin) {
 								dispatch(
 									setIsAuthenticated({
@@ -52,20 +30,47 @@ export default function ProtectedRoute(Component){
 									})
 								);
 							}
+						} else {
+							router.push("/");
+						}
+					} else if (event === "SIGNED_OUT") {
+						dispatch(clearAuth());
+						router.push("/");
+					} else if (
+						event === "PASSWORD_RECOVERY" ||
+						event === "TOKEN_REFRESHED" ||
+						event === "USER_UPDATED"
+					) {
+						dispatch(getUserQuery(session.user.id));
+						if (user.is_admin) {
+							dispatch(
+								setIsAuthenticated({
+									isAuthenticated: true,
+									user_id: session.user.id,
+								})
+							);
 						}
 					}
-				);
-				return () => {
-					data.subscription.unsubscribe();
-				};
+				}
+			);
+			timeoutId = setTimeout(() => {
+				router.push("/");
+			}, 5000);
+			return () => {
+				clearTimeout(timeoutId);
+				data.subscription.unsubscribe();
 			};
-			authenticate();
-		}, [dispatch, router, user.is_admin]);
+		}, [dispatch, router, user.is_admin, auth.isAuthenticated]);
 
-		return auth.user_id ? <Component {...props} /> : null;
-	}
+		if (user.user_id) {
+			return <Component {...props} />;
+		} else {
+			return null;
+		}
 
-};
+		// return user.user_id ? <Component {...props} /> : null;
+	};
+}
 
 // useEffect(() => {
 // 		const authenitcate = async () => {

@@ -6,6 +6,7 @@ import NavBar from "../components/NavBar/NavBar";
 import React, { useEffect, useState } from "react";
 
 import { ReduxProvider } from "@/redux/ReduxProvider/ReduxProvider";
+import { useDispatch } from "react-redux";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,8 @@ Is it better to conditionally render login UI/main app based on authentication
 
 */
 }
+
+
 export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
@@ -31,5 +34,4 @@ export default function RootLayout({ children }) {
 			</body>
 		</html>
 	);
-	// const auth = useSelector((store)=>store.auth)
 }

@@ -17,3 +17,17 @@ export const loginUser = (credentials) => async (dispatch) => {
 		console.log("AUTH THUNK ERROR --> loginUser():", error);
 	}
 };
+
+export const logoutUser = () => async (dispatch) => {
+	console.log("IN AUTH THUNK ----> logoutUser()");
+	try {
+		const response = await supabase.auth.signOut();
+		if (response.error) {
+			console.log("SUPABASE LOGOUT ERROR!: ", response.error.message);
+		} else {
+			console.log("SUPABASE LOGOUT SUCCESS!: ", response.status);
+		}
+	} catch (error) {
+		console.log("AUTH THUNK ERROR --> logoutUser(): ", error);
+	}
+};

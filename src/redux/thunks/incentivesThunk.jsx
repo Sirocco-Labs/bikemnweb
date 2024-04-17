@@ -33,7 +33,6 @@ export const getIncentiveCategories = () => async (dispatch) => {
 
 export const getActiveIncentives = () => async (dispatch) => {
 	console.log("IN INCENTIVE THUNK ---> getActiveIncentives()");
-
 	try {
 		const getActive = await supabase
 			.from("activated_incentives_junction")
@@ -68,7 +67,17 @@ export const getAllIncentives = () => async (dispatch) => {
 	console.log("IN INCENTIVE THUNK ---> getAllIncentives()");
 
 	try {
-		const getAllIncentives = await supabase.from("incentives").select("*");
+		const getAllIncentives = await supabase
+			.from("activated_incentives_junction")
+			.select(
+				`
+                *,
+                incentives (*,
+                    incentive_categories (*)
+                )
+                `
+			)
+			.eq("is_active", false);;
 		if (getAllIncentives.error) {
 			console.log("SUPABASE GET ALL INCENTIVES ERROR");
 		} else {
@@ -77,7 +86,7 @@ export const getAllIncentives = () => async (dispatch) => {
 				getAllIncentives.data,
 				getAllIncentives.status
 			);
-			dispatch(setAllIncentives(getActiveIncentives.data));
+			dispatch(setAllIncentives(getAllIncentives.data));
 		}
 	} catch (error) {
 		console.log("INCENTIVE THUNK ERROR ---> getAllIncentives() ", error);
@@ -163,15 +172,22 @@ export const activateIncentive = (activateData) => async (dispatch) => {
 	}
 };
 
-export const reactivateIncentive = (id) => async (dispatch) => {
-	console.log("IN INCENTIVE THUNK ---> reactivateIncentive(id)", id);
+export const reactivateIncentive = (payload) => async (dispatch) => {
+	console.log(
+		"IN INCENTIVE THUNK ---> reactivateIncentive(payload)",
+		payload
+	);
+    const {id, start_date, end_date, is_active} = payload
 
 	try {
-		if (condition.error) {
-			console.log("");
+        const reactivate = await supabase.from('activated_incentives_junction').update({is_active, start_date, end_date }).eq('id',id)
+		if (reactivate.error) {
+			console.log("SUPABASE REACTIVATE INCENTIVE ERROR", reactivate.error);
 		} else {
-			console.log("", condition.data, condition.status);
+			console.log("SUPABASE ACTIVATE INCENTIVE SUCCESS", reactivate.data, reactivate.status);
 		}
+        dispatch(getAllIncentives())
+
 	} catch (error) {
 		console.log("INCENTIVE THUNK ERROR ---> reactivateIncentive()", error);
 	}
@@ -187,6 +203,9 @@ export const deleteIncentive = (id) => async (dispatch) => {
 			console.log("", condition.data, condition.status);
 		}
 	} catch (error) {
-		console.log("INCENTIVE THUNK ERROR ---> deleteIncentive(id)", error);
+		console.log(
+			"INCENTIVE THUNK ERROR ---> deleteIncentive(payload)",
+			error
+		);
 	}
 };

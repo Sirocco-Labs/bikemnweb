@@ -9,25 +9,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "@/redux/thunks/authThunk";
 
 function Dashboard() {
-    const dispatch = useDispatch();
-    const user = useSelector((store) => store.user)
-
-    useEffect(()=>{},[])
+	const dispatch = useDispatch();
+	const user = useSelector((store) => store.user);
+	const appUsers = useSelector((store) => store.appUsers);
 
 	return (
 		<NavLayout>
-			<h1> Dashboard </h1>
-			<Button
-				variant="contained"
-				sx={{
-					p: 1.5,
-				}}
-                onClick={()=>{
-                    dispatch(logoutUser())
-                }}
-			>
-				Logout
-			</Button>
+			<section className={styles.dashboardTopRow}>
+				<h1> Dashboard </h1>
+
+				<Button
+					variant="contained"
+					onClick={() => {
+						dispatch(logoutUser());
+					}}
+                    sx={{pt:1.25}}
+				>Logout</Button>
+
+			</section>
 		</NavLayout>
 	);
 }

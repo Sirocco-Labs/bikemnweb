@@ -77,6 +77,9 @@ export default function PastChallengesRow({ item, action}) {
 			{reactivate && (
 				<TableCell>
 					<TextField
+					autoFocus={true}
+					variant="standard"
+					size="small"
 						type="date"
 						value={start}
 						inputProps={{
@@ -91,6 +94,8 @@ export default function PastChallengesRow({ item, action}) {
 			{reactivate && (
 				<TableCell>
 					<TextField
+					variant="standard"
+					size="small"
 						type="date"
 						value={end}
 						inputProps={{
@@ -108,14 +113,14 @@ export default function PastChallengesRow({ item, action}) {
 					<Button
 						disabled={(!start || !end)}
 						variant="contained"
-						sx={{ mr: 0.5 }}
+						sx={{ mr: 0.5, pt:1.25 }}
 						onClick={handleSubmit}
 					>
 						Submit
 					</Button>
 					<Button
 						variant="outlined"
-						sx={{ mx: 1 }}
+						sx={{ mx: 1, pt:1.25 }}
 						onClick={() => {
 							setReactivate(!reactivate);
                             setStart('')
@@ -128,8 +133,8 @@ export default function PastChallengesRow({ item, action}) {
 			) : (
 				<TableCell align="center" sx={{ mr: 0.5 }}>
 					<Button
-						variant="contained"
-						sx={{ mr: 0.5 }}
+						variant="outlined"
+						sx={{ mr: 0.5, pt:1.25 }}
 						onClick={() => {
 							setReactivate(!reactivate);
 						}}

@@ -134,6 +134,7 @@ export default function CreateChallengeForm() {
 							1. Give this challenge a fun title (no pressure)
 						</FormLabel>
 						<TextField
+						autoFocus={true}
 							fullWidth
 							sx={{ width: "100%" }}
 							id="challenge-title"
@@ -146,7 +147,7 @@ export default function CreateChallengeForm() {
 
 					<FormControl required fullWidth sx={{ my: 1 }}>
 						<FormLabel id="radio-buttons">
-							{`2. How will you use to measure this challenge's goal?`}
+							{`2. How will you measure this challenge's goal?`}
 						</FormLabel>
 						<RadioGroup
 							row
@@ -342,12 +343,12 @@ export default function CreateChallengeForm() {
 						elevation={8}
 					>
 						<Grid container spacing={2}>
-							<Grid item xs={7}>
+							<Grid item xs={6}>
 								<Typography>
 									{form.title ? `Preview:` : `Example: `}
 								</Typography>
 							</Grid>
-							<Grid item xs={5}>
+							<Grid item xs={6}>
 								<Typography variant="caption">
 									{form.is_public
 										? `*This challenge is for all app users*`
@@ -401,21 +402,6 @@ export default function CreateChallengeForm() {
 					</Card>
 				</Grid>
 			</Grid>
-
-			{/* <FormControl variant="standard">
-				<InputLabel htmlFor="challenge-type">
-                What kind of Challenge is this?
-				</InputLabel>
-				<TextField
-                id="challenge-type"
-                value={form.type}
-                onChange={(e) => setForm({ ...form, type: e.target.value })}
-				/>
-			</FormControl> */}
-
-			{/* <Select
-
-/> */}
 		</div>
 	);
 }

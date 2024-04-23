@@ -89,19 +89,19 @@ function Challenges() {
 					variant="fullWidth"
 						value={value}
 						onChange={changeTabView}
-						sx={{ width: "75%", alignSelf:'center', alignItems:'center' }}
+						sx={{ width: "100%", alignSelf:'center', alignItems:'center' }}
 					>
 						<Tab
-							variant="contained"
-							sx={{ width: "75%", my: 1 }}
+
+							sx={{ width: "100%", my: 1 }}
 							label="Active Challenges"
 						/>
 						<Tab
-							sx={{ width: "75%", my: 1 }}
+							sx={{ width: "100%", my: 1 }}
 							label="Create a new Challenge"
 						/>
 						<Tab
-							sx={{ width: "75%", my: 1 }}
+							sx={{ width: "100%", my: 1 }}
 							label="Previous Challenges"
 						/>
 					</Tabs>

@@ -15,6 +15,7 @@
   margin-left: 25px;
   margin-right: 25px;
 }
+
 .authMain {
   display: flex;
   flex-direction: column;
@@ -22,6 +23,7 @@
   align-items: flex-start;
   min-height: 90vh;
   width: 100%;
+  /* background-color: aqua; */
 }
 
 .nav {
@@ -87,8 +89,15 @@
   background-color: #4083b3;
 }
 
-.section {
-  color: black;
+
+
+.bikeTableContainer {
+  max-height: 500px;
+  overflow-y: scroll;
+  width: 100%;
+  border: 1px solid lightgrey;
+  scrollbar-color: var(--bike-blue) transparent;
+  scrollbar-width: thin;
 
 }
 
@@ -100,6 +109,17 @@
   margin-top: 25px;
   /* background-color: aqua; */
   width: 100%;
+  height: 100%;
+}
+
+.flexCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
 }
 
 .columnWrapper {
@@ -142,17 +162,194 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: flex-start;
-  /* background-color: blueviolet; */
+  align-items: center;
   margin-top: 10px;
   padding: .25rem;
-  width: 100%;
+  width: 99%;
 }
 
 
 
-.customTextField textarea::placeholder{
+.customTextField textarea::placeholder {
   font-weight: 500;
   opacity: .5;
 
+}
+
+.dialogContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 400px;
+  height: 100%;
+  width: 100%;
+  padding: 1.5rem;
+  overflow-y: scroll;
+  scrollbar-color: var(--bike-blue) transparent;
+  scrollbar-width: thin;
+}
+.dialogScroll {
+  min-height: 500px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+  width: 100%;
+}
+
+.dialogContainerRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  min-height: 400px;
+  height: 100%;
+  width: 100%;
+  padding: 1.5rem;
+
+}
+
+.dialogContainerSmall {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  min-height: 400px;
+  height: 100%;
+  width: 100%;
+  padding: 1.5rem;
+
+}
+
+.dialogContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  min-height: 100%;
+  margin-bottom: 1rem;
+
+}
+
+.dialogContentLeft {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 100%;
+  margin-bottom: 1rem;
+}
+
+.dialogTopRow {
+  width: 100%;
+  /* height:100%; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+
+
+}
+
+.dialogButtons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 50%;
+  margin-top: 2rem;
+}
+
+.dashboardTopRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.dialogSplitCol {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+}
+
+.contentSplitCol {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+
+}
+
+.contentLeft {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 100%;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid lightgrey;
+  padding: 1.5rem;
+}
+
+.splitContentLeft {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 100%;
+  margin-bottom: .25rem;
+  padding: .5rem;
+}
+
+.scrollSideways {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow-x: scroll;
+  min-width: 950px;
+  width: 100%;
+  min-height: 220px;
+  height: 100%;
+  padding: 1rem .5rem;
+  scrollbar-color: var(--bike-blue) transparent;
+}
+
+.innerScroll {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  overflow-x: hidden;
+  border: 1px solid lime;
+  width: 100%;
+  /* min-height:300px; */
+  height: 100%;
+
+}
+
+.cardWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: .2rem;
+
+}
+
+.stickyColumn {
+  position: sticky;
+  left: 0;
+  background-color: var(--bike-white);
+  z-index: 9999 !important;
 }

@@ -1,6 +1,4 @@
 import { useState } from "react";
-import styles from "../../app/page.module.css";
-import Grid from "@mui/material/Grid";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -20,7 +18,6 @@ export default function RiderDemoDetails({ rider }) {
 			work: { ...addresses[1] },
 		},
 	]);
-	console.log("details deets", deets);
 
 	return (
 		<TableContainer component={Paper}>
@@ -37,9 +34,6 @@ export default function RiderDemoDetails({ rider }) {
 								color: "var(--bike-white)",
 								letterSpacing: ".065rem",
 							},
-							// "& th:not(:last-child)": {
-							// 	borderRight: "1px solid var(--bike-orange)",
-							// },
 						}}
 					>
 						<TableCell align="center" colSpan={8}>
@@ -270,21 +264,4 @@ export default function RiderDemoDetails({ rider }) {
 			</Table>
 		</TableContainer>
 	);
-}
-
-{
-	/*
-.data.incentive_point_value
-.data.point_total
-.data.completion_progress
-.data.has_been_met - x
-
-.data.details.title - x
-.data.details.description - x
-.data.details.point_value - x
-
-.data.details.category.incentive_type - x
-.data.details.category.unit_of_measure - x
-
-*/
 }

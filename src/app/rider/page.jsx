@@ -1,14 +1,11 @@
 "use client";
 import styles from "../page.module.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import NavLayout from "@/components/NavLayout/NavLayout";
 import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute";
-
 import { useDispatch, useSelector } from "react-redux";
-
 import { getAppUsers } from "@/redux/thunks/appUserDataThunk";
 import RiderDetailsRow from "@/components/RiderDetailsRow/RiderDetailsRow";
-
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -17,21 +14,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-import { supabase } from "@/utils/supabase/supabase";
-
 function Rider() {
 	const dispatch = useDispatch();
-	const user = useSelector((store) => store.user);
 	const appUsers = useSelector((store) => store.appUsers);
 
 	useEffect(() => {
 		dispatch(getAppUsers());
-		const income = async () =>{
-
-		let find = await supabase.from('income_categories').select('*')
-		console.log('income',find.data, find.error);
-		}
-		income()
 	}, [dispatch]);
 
 	return (
@@ -63,7 +51,6 @@ function Rider() {
 						</TableBody>
 					</Table>
 				</TableContainer>
-
 			</section>
 		</NavLayout>
 	);

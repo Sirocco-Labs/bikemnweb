@@ -1,22 +1,13 @@
 import styles from "../../app/page.module.css";
-import Grid from "@mui/material/Grid";
 import Dialog from "@mui/material/Dialog";
 import Button from "@mui/material/Button";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 
-import RiderDetailsDialog from "@/components/RiderDetailsDialog/RiderDetailsDialog";
 import { useState } from "react";
 import RiderDemoDetails from "../RiderDemoDetails/RiderDemoDetails";
 
 export default function RiderDetailsRow({ rider }) {
-	const {} = rider;
-	const pStyle = {
-		fontWeight: "bold",
-		marginBottom: ".5rem",
-		fontSize: "1rem",
-	};
-
 	const userType = (rider) => {
 		if (rider.is_admin) {
 			return `Admin`;
@@ -48,6 +39,7 @@ export default function RiderDetailsRow({ rider }) {
 				<TableCell align="right">{rider.email}</TableCell>
 				<TableCell align="right">
 					<Button
+						variant="outlined"
 						onClick={() => {
 							setOpen(!open);
 						}}
@@ -61,36 +53,21 @@ export default function RiderDetailsRow({ rider }) {
 				maxWidth="xl"
 				onClose={() => setOpen(false)}
 				fullWidth
-				sx={{ display:'flex', height: "100%", padding:10 }}
+				sx={{ display: "flex", height: "100%", padding: 10 }}
 			>
 				<div className={styles.dialogTopRow}>
 					<Button
 						onClick={() => {
 							setOpen(!open);
 						}}
-						sx={{pt:1.25}}
+						sx={{ pt: 1.25 }}
 					>
 						X
 					</Button>
 				</div>
-				<div
-				style={{padding:'.5rem'}}
-				>
-
-				<RiderDemoDetails rider={rider} />
+				<div className={styles.halfPad}>
+					<RiderDemoDetails rider={rider} />
 				</div>
-
-				{/* <div className={styles.dialogContainer}>
-					<div className={styles.dialogTopRow}>
-						<Button
-							onClick={() => {
-								setOpen(!open);
-							}}
-						>
-							Close
-						</Button>
-					</div>
-				</div> */}
 			</Dialog>
 		</>
 	);

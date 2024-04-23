@@ -29,7 +29,7 @@ function Bikes() {
 				<h1> Bike Info </h1>
 			</section>
 			<AddBikeForm />
-			<h2 style={{ marginBottom: "1rem" }}>All bikes</h2>
+			<h2  className={styles.mb}>All bikes</h2>
 			<section className={styles.column}>
 				<AllBikesTable allBikes={allBikes} orgInfo={orgInfo} />
 			</section>
@@ -37,25 +37,3 @@ function Bikes() {
 	);
 }
 export default ProtectedRoute(Bikes);
-
-/*
-
- id,
-             bikes:bike_id(
-                make,
-                color,
-                serial_number,
-                notes
-             ),
-             org:org_id(
-                name
-             ),
-             in_use,
-             check_out_date,
-             return_by,
-             appUser:checked_out_by(
-                first_name,
-                last_name
-             )
-
-*/

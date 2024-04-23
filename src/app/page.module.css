@@ -353,3 +353,9 @@
   background-color: var(--bike-white);
   z-index: 9999 !important;
 }
+.mb{
+  margin-bottom: 1rem;
+}
+.halfPad{
+  padding:.5rem;
+}

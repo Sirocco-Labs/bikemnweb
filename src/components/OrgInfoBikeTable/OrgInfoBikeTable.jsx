@@ -1,10 +1,3 @@
-"use client";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import Grid from "@mui/material/Grid";
-import Collapse from "@mui/material/Collapse";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import { useState } from "react";
@@ -15,7 +8,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-import { useSelector } from "react-redux";
 import styles from "../../app/page.module.css";
 
 function NotesWrapper({ notes }) {
@@ -203,31 +195,4 @@ export default function OrgInfoBikeTable({ orgBikes, open, handleClose, org }) {
 			</Dialog>
 		</>
 	);
-}
-{
-	/* <Grid container spacing={1}>
-	<Grid item xs={12}>
-		<Grid container spacing={1}>
-			<Grid item xs={3}>
-				<Typography variant="caption">
-					{bike.in_use ? `In use` : `Available`}
-				</Typography>
-			</Grid>
-			<Grid item xs={2}>
-				<Typography variant="caption">{bike.bikes.make}</Typography>
-			</Grid>
-			<Grid item xs={2}>
-				<Typography variant="caption">{bike.bikes.color}</Typography>
-			</Grid>
-			<Grid item xs={3}>
-				<Typography variant="caption">
-					{bike.bikes.serial_number}
-				</Typography>
-			</Grid>
-			<Grid item xs={1}>
-				<Typography variant="caption">notes</Typography>
-			</Grid>
-		</Grid>
-	</Grid>
-</Grid>; */
 }

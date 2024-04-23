@@ -182,7 +182,6 @@ export default function OrgInfoBikeTable({ orgBikes, open, handleClose, org }) {
 						style={{
 							maxHeight: "300px",
 							overflowY: "scroll",
-							//   border: '1px solid lightgrey',
 							scrollbarColor: "var(--bike-blue) transparent",
 							scrollbarWidth: "thin",
 							padding: "0.5rem 1.25rem",

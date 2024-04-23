@@ -1,19 +1,9 @@
 "use client";
-import styles from "../page.module.css";
+import styles from "../page.module.css"
 import React, { useEffect, useState } from "react";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import { useDispatch, useSelector } from "react-redux";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import { useDispatch} from "react-redux";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 
 import CreateChallengeForm from "@/components/CreateChallengeForm/CreateChallengeForm";
 import ActiveChallengesView from "@/components/ActiveChallengesView/ActiveChallengesView";
@@ -53,7 +43,6 @@ function Challenges() {
 						justifyContent: "center",
 						width: "100%",
 						padding: "1rem",
-						// border: "1px solid magenta",
 					}}
 				>
 					{value === index && (
@@ -66,7 +55,6 @@ function Challenges() {
 								padding: ".5rem",
 								width:'100%',
 								alignSelf:'center',
-								// border: "1px solid lime",
 							}}
 						>
 							{children}

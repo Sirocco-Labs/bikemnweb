@@ -1,6 +1,6 @@
 "use client";
 import styles from "../../app/page.module.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@mui/material/Button";
@@ -14,7 +14,6 @@ import { addNewOrg } from "@/redux/thunks/orgThunk";
 
 export default function AddNewOrganizationForm() {
 	const dispatch = useDispatch();
-	const user = useSelector((store) => store.user);
 	const [show, setShow] = useState(false);
 
 	const orgData = {
@@ -26,9 +25,7 @@ export default function AddNewOrganizationForm() {
 	};
 
 	const [form, setForm] = useState(orgData);
-	// useEffect(() => {
-	// 	console.log(form);
-	// }, [form]);
+
 
 	const handleSubmit = () => {
 		dispatch(addNewOrg(form));

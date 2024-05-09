@@ -51,10 +51,11 @@ export const getAppUsers = () => async (dispatch) =>{
                     )
                 )
             ),
-            incentive_point_value,
-            point_total,
+            incentive_goal_value,
+            earned_points_toward_goal,
             completion_progress,
-            has_been_met
+            has_been_met,
+            date_completed
             )
 
         `).order('id', {ascending:true});

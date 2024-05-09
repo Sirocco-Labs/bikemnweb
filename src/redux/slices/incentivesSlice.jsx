@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
 	categories:[],
     allIncentives:[],
-	activeIncentives:[]
+	activeIncentives:[],
+	pastIncentives:[],
 };
 
 const incentiveSlice = createSlice({
@@ -10,13 +11,16 @@ const incentiveSlice = createSlice({
 	initialState,
 	reducers: {
 		setIncentiveCategories(state, action) {
-			return {...state, categories: action.payload}
+			return { ...state, categories: action.payload };
 		},
 		setAllIncentives(state, action) {
-			return {...state, allIncentives: action.payload}
+			return { ...state, allIncentives: action.payload };
 		},
 		setActiveIncentives(state, action) {
-			return {...state, activeIncentives: action.payload}
+			return { ...state, activeIncentives: action.payload };
+		},
+		setPastIncentives(state, action) {
+			return { ...state, pastIncentives: action.payload };
 		},
 		clearIncentives(state) {
 			return { ...state, ...initialState };
@@ -24,7 +28,11 @@ const incentiveSlice = createSlice({
 	},
 });
 
-export const { setIncentiveCategories, setAllIncentives, setActiveIncentives } =
-	incentiveSlice.actions;
+export const {
+	setIncentiveCategories,
+	setAllIncentives,
+	setActiveIncentives,
+	setPastIncentives,
+} = incentiveSlice.actions;
 
 export default incentiveSlice.reducer;

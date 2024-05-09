@@ -3,6 +3,7 @@ import styles from "../page.module.css";
 import React, { useEffect, useState } from "react";
 import NavLayout from "@/components/NavLayout/NavLayout";
 import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute";
+import Typography from "@mui/material/Typography";
 
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,9 +24,42 @@ function Dashboard() {
 					onClick={() => {
 						dispatch(logoutUser());
 					}}
-                    sx={{pt:1.25}}
-				>Logout</Button>
-
+					sx={{ pt: 1.25 }}
+				>
+					Logout
+				</Button>
+			</section>
+			<section className={styles.column}>
+				<section className={styles.contentLeft}>
+					<section className={styles.contentSplitCol}>
+						<section className={styles.splitContentLeft}>
+							<div
+								style={{
+									width: "600px",
+									height: "600px",
+									backgroundColor: "var(--bike-orange)",
+								}}
+							>
+								<Typography variant="h5" mt align="center">
+									Chart
+								</Typography>
+							</div>
+						</section>
+						<section className={styles.splitContentLeft}>
+							<div
+								style={{
+									width: "600px",
+									height: "600px",
+									border: "3px solid var(--bike-blue)",
+								}}
+							>
+								<Typography variant="h5" mt align="center">
+									Table of data?
+								</Typography>
+							</div>
+						</section>
+					</section>
+				</section>
 			</section>
 		</NavLayout>
 	);

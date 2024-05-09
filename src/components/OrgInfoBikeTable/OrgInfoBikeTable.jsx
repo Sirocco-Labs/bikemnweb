@@ -56,7 +56,7 @@ export default function OrgInfoBikeTable({ orgBikes, open, handleClose, org }) {
 					<TableHead>
 						<TableRow
 							sx={{
-								"& > :first-child": {
+								"& > :first-of-type": {
 									position: "sticky",
 									left: 0,
 									backgroundColor: "var(--bike-white)",
@@ -80,9 +80,9 @@ export default function OrgInfoBikeTable({ orgBikes, open, handleClose, org }) {
 							.filter((ride) => ride.org.name === org.name)
 							.map((bike, i) => (
 								<TableRow
-								key={i}
+									key={i}
 									sx={{
-										"& > :first-child": {
+										"& > :first-of-type": {
 											position: "sticky",
 											left: 0,
 											backgroundColor:

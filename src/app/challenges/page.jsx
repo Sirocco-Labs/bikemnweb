@@ -14,6 +14,7 @@ import {
 	getActiveIncentives,
 	getAllIncentives,
 	getIncentiveCategories,
+	getPastIncentives,
 } from "@/redux/thunks/incentivesThunk";
 
 import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute";
@@ -23,11 +24,11 @@ function Challenges() {
 
 	const [value, setValue] = useState(0);
 
-	useEffect(() => {
-		dispatch(getIncentiveCategories());
-		dispatch(getAllIncentives());
-		dispatch(getActiveIncentives());
-	}, [dispatch]);
+	// useEffect(() => {
+	// 	dispatch(getIncentiveCategories());
+	// 	dispatch(getAllIncentives());
+	// 	dispatch(getPastIncentives());
+	// }, [dispatch]);
 
 	const TabView = (props) => {
 		const { children, value, index, ...other } = props;
@@ -72,39 +73,38 @@ function Challenges() {
 	return (
 		<NavLayout>
 			<h1> Challenges </h1>
+			<Tabs
+				variant="fullWidth"
+				value={value}
+				onChange={changeTabView}
+				sx={{
+					width: "100%",
+					alignSelf: "center",
+					alignItems: "center",
+				}}
+			>
+				<Tab sx={{ width: "100%", my: 1 }} label="Active Challenges" />
+				<Tab
+					sx={{ width: "100%", my: 1 }}
+					label="Create a new Challenge"
+				/>
+				<Tab
+					sx={{ width: "100%", my: 1 }}
+					label="Previous Challenges"
+				/>
+			</Tabs>
 
-					<Tabs
-					variant="fullWidth"
-						value={value}
-						onChange={changeTabView}
-						sx={{ width: "100%", alignSelf:'center', alignItems:'center' }}
-					>
-						<Tab
+			<TabView value={value} index={0}>
+				<ActiveChallengesView />
+			</TabView>
 
-							sx={{ width: "100%", my: 1 }}
-							label="Active Challenges"
-						/>
-						<Tab
-							sx={{ width: "100%", my: 1 }}
-							label="Create a new Challenge"
-						/>
-						<Tab
-							sx={{ width: "100%", my: 1 }}
-							label="Previous Challenges"
-						/>
-					</Tabs>
+			<TabView value={value} index={1}>
+				<CreateChallengeForm />
+			</TabView>
 
-					<TabView value={value} index={0}>
-						<ActiveChallengesView />
-					</TabView>
-
-					<TabView value={value} index={1}>
-						<CreateChallengeForm />
-					</TabView>
-
-					<TabView value={value} index={2}>
-						<PastChallengesView />
-					</TabView>
+			<TabView value={value} index={2}>
+				<PastChallengesView />
+			</TabView>
 		</NavLayout>
 	);
 }

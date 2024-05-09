@@ -1,11 +1,13 @@
 "use client";
+import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute";
+import NavLayout from "@/components/NavLayout/NavLayout";
 import styles from "../page.module.css";
 import React, { useState } from "react";
-import NavLayout from "@/components/NavLayout/NavLayout";
-
-import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute";
+import { useDispatch } from "react-redux";
 
 function Grant() {
+	const dispatch = useDispatch();
+
 	return (
 		<NavLayout>
 			<div className={styles.description}>
@@ -14,4 +16,4 @@ function Grant() {
 		</NavLayout>
 	);
 }
-export default ProtectedRoute(Grant)
+export default ProtectedRoute(Grant);

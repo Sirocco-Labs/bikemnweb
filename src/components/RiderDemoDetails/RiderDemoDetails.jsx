@@ -160,22 +160,24 @@ export default function RiderDemoDetails({ rider }) {
 							<Typography variant="h7">Ride Stats</Typography>
 						</TableCell>
 					</TableRow>
+					<>
+						<TableRow>
+							<TableCell align="left" colSpan={3}>
+								Total Rides
+							</TableCell>
+							<TableCell align="left" colSpan={3}>
+								Total Miles
+							</TableCell>
+							<TableCell align="left" colSpan={3}>
+								Total Work Commutes
+							</TableCell>
+							<TableCell align="left" colSpan={5}>
+								Total Miles Commuting to Work
+							</TableCell>
+						</TableRow>
+					</>
 					{stats.map((stat, i) => (
 						<>
-							<TableRow key={i}>
-								<TableCell align="left" colSpan={3}>
-									Total Rides
-								</TableCell>
-								<TableCell align="left" colSpan={3}>
-									Total Miles
-								</TableCell>
-								<TableCell align="left" colSpan={3}>
-									Total Work Commutes
-								</TableCell>
-								<TableCell align="left" colSpan={5}>
-									Total Miles Commuting to Work
-								</TableCell>
-							</TableRow>
 							<TableRow key={i}>
 								<TableCell align="left" colSpan={3}>
 									{`${stat.rides_total}`}
@@ -206,56 +208,76 @@ export default function RiderDemoDetails({ rider }) {
 						}}
 					>
 						<TableCell align="center" colSpan={16}>
-							<Typography variant="h7">Challenge History</Typography>
+							<Typography variant="h7">
+								Challenge History
+							</Typography>
 						</TableCell>
 					</TableRow>
+					<>
+						<TableRow>
+							<TableCell align="left" colSpan={1}>
+								Status
+							</TableCell>
+							<TableCell align="left" colSpan={3}>
+								Title
+							</TableCell>
+							<TableCell align="left" colSpan={3}>
+								Description
+							</TableCell>
+							<TableCell align="left" colSpan={1}>
+								Goal
+							</TableCell>
+							<TableCell align="left" colSpan={1}>
+								Points Earned
+							</TableCell>
+							<TableCell align="left" colSpan={1}>
+								Progress
+							</TableCell>
+							<TableCell align="left" colSpan={1}>
+								Completed
+							</TableCell>
+							<TableCell align="left" colSpan={2}>
+								Date Completed
+							</TableCell>
+							<TableCell align="left" colSpan={1}>
+								Received Reward
+							</TableCell>
+						</TableRow>
+					</>
 					{challenges.map((chal, i) => (
 						<>
-							<TableRow key={i}>
-								<TableCell align="left" colSpan={3}>
-									Title
+							<TableRow key={chal.id}>
+								<TableCell align="left" colSpan={1}>
+									{chal.data.is_active ? `Active` : `Ended`}
 								</TableCell>
-								<TableCell align="left" colSpan={3}>
-									Description
-								</TableCell>
-								<TableCell align="left" colSpan={3}>
-									Category
-								</TableCell>
-								<TableCell align="left" colSpan={5}>
-									Goal
-								</TableCell>
-								<TableCell align="left" colSpan={5}>
-									Points Earned
-								</TableCell>
-								<TableCell align="left" colSpan={5}>
-									Progress
-								</TableCell>
-								<TableCell align="left" colSpan={3}>
-									Completed
-								</TableCell>
-							</TableRow>
-							<TableRow key={i}>
 								<TableCell align="left" colSpan={3}>
 									{chal.data.details.title}
 								</TableCell>
 								<TableCell align="left" colSpan={3}>
 									{chal.data.details.description}
 								</TableCell>
-								<TableCell align="left" colSpan={3}>
-									{chal.data.details.category.incentive_type}
-								</TableCell>
-								<TableCell align="left" colSpan={5}>
-									{`${chal.data.details.point_value} ${chal.data.details.category.unit_of_measure}`}
+								<TableCell align="left" colSpan={1}>
+									{chal.incentive_goal_value}{" "}
+									{chal.data.details.category.unit_of_measure}
 								</TableCell>
 
-								<TableCell align="left" colSpan={3}>
-									{chal.data.point_total}
+								<TableCell align="left" colSpan={1}>
+									{chal.earned_points_toward_goal}{" "}
+									{chal.data.details.category.unit_of_measure}
 								</TableCell>
-								<TableCell align="left" colSpan={3}>
-									{chal.data.completion_progress}
+								<TableCell align="left" colSpan={1}>
+									{chal.completion_progress}
 								</TableCell>
-								<TableCell align="left" colSpan={3}>
-									{chal.data.has_been_met ? `Yes` : `No`}
+								<TableCell align="left" colSpan={1}>
+									{chal.has_been_met ? `✅` : `❌`}
+								</TableCell>
+								<TableCell align="left" colSpan={2}>
+									{chal.has_been_met
+										? chal.date_completed
+										: ``}
+								</TableCell>
+								<TableCell align="left" colSpan={1}>
+									{chal.is_rewarded ? `🏆` : `❌`}
 								</TableCell>
 							</TableRow>
 						</>
@@ -265,3 +287,39 @@ export default function RiderDemoDetails({ rider }) {
 		</TableContainer>
 	);
 }
+
+
+/*
+ challenges:(
+    id,
+    active_incentive_id,
+    user_id,
+    incentive_goal_value,
+    earned_points_toward_goal,
+    completion_progress,
+    has_been_met,
+    date_completed,
+	is_rewarded,
+
+challenges.data:(
+    incentive_id,
+    is_active,
+	is_public,
+    start_date,
+    end_date,
+    created_at,
+    promo_video,
+    reward_photo,
+    reward_description,
+
+chal.data.details:(
+    title,
+    description,
+    point_value,
+
+chal.data.details.category:(
+    incentive_type,
+    unit_of_measure
+
+
+ */

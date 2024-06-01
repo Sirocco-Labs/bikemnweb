@@ -17,6 +17,7 @@ import Paper from "@mui/material/Paper";
 function Rider() {
 	const dispatch = useDispatch();
 	const appUsers = useSelector((store) => store.appUsers);
+	const user = useSelector((store)=>store.user)
 
 	useEffect(() => {
 		dispatch(getAppUsers());
@@ -45,7 +46,7 @@ function Rider() {
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{appUsers.map((rider) => (
+							{appUsers?.map((rider) => (
 								<RiderDetailsRow key={rider.id} rider={rider} />
 							))}
 						</TableBody>

@@ -7,6 +7,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import styles from "../../app/page.module.css";
 
@@ -39,6 +40,7 @@ export default function OrgInfoBikeTable({ orgBikes, open, handleClose, org }) {
 	return (
 		<>
 			<TableContainer
+				component={Paper}
 				sx={{
 					width: 600,
 					overflowX: "scroll",
@@ -56,10 +58,10 @@ export default function OrgInfoBikeTable({ orgBikes, open, handleClose, org }) {
 					<TableHead>
 						<TableRow
 							sx={{
-								"& > :first-child": {
+								"& > :first-of-type": {
 									position: "sticky",
 									left: 0,
-									backgroundColor: "var(--bike-white)",
+									backgroundColor: "#fff",
 									zIndex: 1,
 								},
 							}}
@@ -80,13 +82,12 @@ export default function OrgInfoBikeTable({ orgBikes, open, handleClose, org }) {
 							.filter((ride) => ride.org.name === org.name)
 							.map((bike, i) => (
 								<TableRow
-								key={i}
+									key={i}
 									sx={{
-										"& > :first-child": {
+										"& > :first-of-type": {
 											position: "sticky",
 											left: 0,
-											backgroundColor:
-												"var(--bike-white)",
+											backgroundColor: "#fff",
 											zIndex: 1,
 										},
 									}}
@@ -182,7 +183,6 @@ export default function OrgInfoBikeTable({ orgBikes, open, handleClose, org }) {
 						style={{
 							maxHeight: "300px",
 							overflowY: "scroll",
-							//   border: '1px solid lightgrey',
 							scrollbarColor: "var(--bike-blue) transparent",
 							scrollbarWidth: "thin",
 							padding: "0.5rem 1.25rem",

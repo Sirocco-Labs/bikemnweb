@@ -2,7 +2,10 @@ import {
 	setIncentiveCategories,
 	setAllIncentives,
 	setActiveIncentives,
+	setPastIncentives,
 } from "../slices/incentivesSlice";
+
+import { setMedia } from "../slices/mediaUpload";
 
 import { supabase } from "@/utils/supabase/supabase";
 
@@ -38,9 +41,22 @@ export const getActiveIncentives = () => async (dispatch) => {
 			.from("activated_incentives_junction")
 			.select(
 				`
-                *,
-                incentives (*,
-                    incentive_categories (*)
+                id,
+                start_date,
+                end_date,
+				is_active,
+				promo_video,
+				reward_photo,
+				reward_description,
+                incentives: incentive_id(
+                    id,
+                    title,
+                    description,
+                    category: category_id(
+                        incentive_type,
+                        unit_of_measure
+                    ),
+                    point_value
                 )
                 `
 			)
@@ -63,23 +79,80 @@ export const getActiveIncentives = () => async (dispatch) => {
 	}
 };
 
+export const getPastIncentives = () => async (dispatch) => {
+	console.log("IN INCENTIVE THUNK ---> getPastIncentives()");
+
+	try {
+		const getOldIncentives = await supabase
+			.from("activated_incentives_junction")
+			.select(
+				`
+                 id,
+				 incentive_id,
+                start_date,
+                end_date,
+				is_active,
+				is_public,
+				promo_video,
+				reward_photo,
+				reward_description,
+                incentives: incentive_id(
+                    id,
+                    title,
+                    description,
+                    category: category_id(
+                        incentive_type,
+                        unit_of_measure
+                    ),
+                    point_value
+                )
+                `
+			)
+			.eq("is_active", false)
+			.order("id", { ascending: true });
+		if (getOldIncentives.error) {
+			console.log(
+				"SUPABASE GET ALL INCENTIVES ERROR",
+				getOldIncentives.error
+			);
+		} else {
+			console.log(
+				"SUPABASE GET ALL INCENTIVES SUCCESS",
+				getOldIncentives.data,
+				getOldIncentives.status
+			);
+			dispatch(setPastIncentives(getOldIncentives.data));
+		}
+	} catch (error) {
+		console.log("INCENTIVE THUNK ERROR ---> getPastIncentives() ", error);
+	}
+};
 export const getAllIncentives = () => async (dispatch) => {
 	console.log("IN INCENTIVE THUNK ---> getAllIncentives()");
 
 	try {
-		const getAllIncentives = await supabase
-			.from("activated_incentives_junction")
-			.select(
-				`
-                *,
-                incentives (*,
-                    incentive_categories (*)
-                )
-                `
-			)
-			.eq("is_active", false);;
+		const getAllIncentives = await supabase.from(
+			"activated_incentives_junction"
+		).select(`
+                id,
+                start_date,
+                end_date,
+                incentives: incentive_id(
+                    id,
+                    title,
+                    description,
+					point_value,
+                    category: category_id(
+                        incentive_type,
+                        unit_of_measure
+                    )
+				)
+                `);
 		if (getAllIncentives.error) {
-			console.log("SUPABASE GET ALL INCENTIVES ERROR");
+			console.log(
+				"SUPABASE GET ALL INCENTIVES ERROR",
+				getAllIncentives.error
+			);
 		} else {
 			console.log(
 				"SUPABASE GET ALL INCENTIVES SUCCESS",
@@ -95,6 +168,7 @@ export const getAllIncentives = () => async (dispatch) => {
 
 export const addNewIncentive = (formData) => async (dispatch) => {
 	console.log("IN INCENTIVE THUNK ---> addNewIncentive(formData)", formData);
+
 	const {
 		type,
 		title,
@@ -106,6 +180,10 @@ export const addNewIncentive = (formData) => async (dispatch) => {
 		is_public,
 		notes,
 		user_id,
+		promo_vid,
+		promo_vid_url,
+		reward_pic,
+		reward_description,
 	} = formData;
 
 	const toIncentives = {
@@ -115,12 +193,78 @@ export const addNewIncentive = (formData) => async (dispatch) => {
 		point_value,
 		user_id,
 	};
+	let promo_video;
+	let reward_photo;
 
 	try {
+		const videoName = await formatName(promo_vid.name);
+
+		const uploadVideo = await supabase.storage
+			.from("promo_content")
+			.upload(`videos/${videoName.pretty}`, promo_vid, {
+				contentType: "video/mp4",
+			});
+
+		if (uploadVideo.error) {
+			console.error("SUPABASE UPLOAD VIDEO ERROR", uploadVideo.error);
+		} else {
+			console.log(
+				"SUPABASE UPLOAD VIDEO SUCCESS",
+				uploadVideo.status,
+				uploadVideo.data
+			);
+
+			const videoURL = supabase.storage
+				.from("promo_content")
+				.getPublicUrl(uploadVideo.data.path);
+
+			if (videoURL.error) {
+				console.error("VIDEO URL ERROR", videoURL.error);
+			} else {
+				console.log(
+					"VIDEO URL SUCCESS",
+					videoURL.status,
+					videoURL.data
+				);
+
+				promo_video = videoURL.data.publicUrl;
+			}
+		}
+
+		const photoName = await formatName(reward_pic.name);
+		const uploadPhoto = await supabase.storage
+			.from("promo_content")
+			.upload(`photos/${photoName.pretty}`, reward_pic);
+		if (uploadPhoto.error) {
+			console.error("SUPABASE UPLOAD PHOTO ERROR", uploadPhoto.error);
+		} else {
+			console.log(
+				"SUPABASE UPLOAD PHOTO SUCCESS",
+				uploadPhoto.status,
+				uploadPhoto.data
+			);
+			const photoURL = supabase.storage
+				.from("promo_content")
+				.getPublicUrl(uploadPhoto.data.path);
+
+			if (photoURL.error) {
+				console.error("PHOTO URL ERROR", photoURL.error);
+			} else {
+				console.log(
+					"PHOTO URL SUCCESS",
+					photoURL.status,
+					photoURL.data
+				);
+
+				reward_photo = photoURL.data.publicUrl;
+			}
+		}
+
 		const addIncentive = await supabase
 			.from("incentives")
 			.insert(toIncentives)
-			.select();
+			.select("*")
+			.single();
 		if (addIncentive.error) {
 			console.log("SUPABASE ADD NEW INCENTIVE ERROR", addIncentive.error);
 		} else {
@@ -138,6 +282,9 @@ export const addNewIncentive = (formData) => async (dispatch) => {
 				end_date,
 				is_public,
 				user_id,
+				promo_video,
+				reward_photo,
+				reward_description,
 			};
 			dispatch(getAllIncentives());
 			dispatch(activateIncentive(toActivated));
@@ -146,6 +293,77 @@ export const addNewIncentive = (formData) => async (dispatch) => {
 		console.log("INCENTIVE THUNK ERROR ---> addNewIncentive()", error);
 	}
 };
+
+const formatName = async (name) => {
+	let unique;
+	let time = new Date().toLocaleString("en-us", {
+		day: "numeric",
+		month: "short",
+		hour: "numeric",
+		minute: "numeric",
+		second: "numeric",
+		fractionalSecondDigits: 3,
+	});
+	unique = `${time}${name}`;
+	console.log("UNIQUE", unique);
+	const lastIndex = unique.lastIndexOf(".");
+	const extension = unique.substring(lastIndex);
+	let formatted = unique
+		.slice(0, unique.lastIndexOf("."))
+		.replaceAll(/[.\s()-/*&^$#@+\[\]{}:]|[\u202F]/g, "_");
+
+	console.log("UNIQUE FORMATTED", formatted);
+	return { pretty: `${formatted}${extension}`, ending: extension };
+};
+
+// export const uploadFiles = (promo_vid) => async (dispatch) => {
+// 	console.log("VIDEO 8 FILE", promo_vid);
+// 	try {
+// 		const formatName = async (name) => {
+// 			const lastIndex = name.lastIndexOf(".");
+// 			const extension = name.substring(lastIndex);
+// 			let formatted = name
+// 				.replaceAll(".", "_")
+// 				.replaceAll("-", "_")
+// 				.replaceAll(" ", "_")
+// 				.replaceAll("\u202F", "_");
+
+// 			return `${formatted}${extension}`;
+// 		};
+// 		const videoName = await formatName(promo_vid.name);
+// 		console.log("8 FILE formatName", videoName);
+
+// 		const uploadVideo = await supabase.storage
+// 			.from("promo_content")
+// 			.upload(`videos/${videoName}`, promo_vid);
+
+// 		if (uploadVideo.error) {
+// 			console.error(
+// 				"8 FILE SUPABASE UPLOAD VIDEO ERROR",
+// 				uploadVideo.error
+// 			);
+// 		} else {
+// 			console.log(
+// 				"8 FILE SUPABASE UPLOAD VIDEO SUCCESS",
+// 				uploadVideo.status,
+// 				uploadVideo.data
+// 			);
+// 			const videoURL = supabase.storage
+// 				.from("promo_content")
+// 				.getPublicUrl(uploadVideo.data.path);
+
+// 			if (videoURL.error) {
+// 				console.error("8 FILE VIDEO URL ERROR", videoURL.error);
+// 			} else {
+// 				console.log("8 FILE VIDEO URL SUCCESS", videoURL.data);
+
+// 				dispatch(setMedia(videoURL.data.publicUrl));
+// 			}
+// 		}
+// 	} catch (error) {
+// 		console.error("8 FILE ERROR UPLOADING FILE", error);
+// 	}
+// };
 
 export const activateIncentive = (activateData) => async (dispatch) => {
 	console.log("IN INCENTIVE THUNK ---> activateIncentive(activateData)"),
@@ -162,7 +380,7 @@ export const activateIncentive = (activateData) => async (dispatch) => {
 				activateIt.data,
 				activateIt.status
 			);
-            dispatch(getActiveIncentives())
+			dispatch(getActiveIncentives());
 		}
 	} catch (error) {
 		console.log(
@@ -177,17 +395,37 @@ export const reactivateIncentive = (payload) => async (dispatch) => {
 		"IN INCENTIVE THUNK ---> reactivateIncentive(payload)",
 		payload
 	);
-    const {id, start_date, end_date, is_active} = payload
+	const {
+		incentive_id,
+		start_date,
+		end_date,
+		is_public,
+		user_id,
+		promo_video,
+		reward_photo,
+		reward_description,
+	} = payload;
 
 	try {
-        const reactivate = await supabase.from('activated_incentives_junction').update({is_active, start_date, end_date }).eq('id',id)
+		const reactivate = await supabase
+			.from("activated_incentives_junction")
+			.insert(payload)
+			.select('*')
+			.limit(1)
+			.single();
 		if (reactivate.error) {
-			console.log("SUPABASE REACTIVATE INCENTIVE ERROR", reactivate.error);
+			console.log(
+				"SUPABASE REACTIVATE INCENTIVE ERROR",
+				reactivate.error
+			);
 		} else {
-			console.log("SUPABASE ACTIVATE INCENTIVE SUCCESS", reactivate.data, reactivate.status);
+			console.log(
+				"SUPABASE ACTIVATE INCENTIVE SUCCESS",
+				reactivate.data,
+				reactivate.status
+			);
 		}
-        dispatch(getAllIncentives())
-
+		dispatch(getAllIncentives());
 	} catch (error) {
 		console.log("INCENTIVE THUNK ERROR ---> reactivateIncentive()", error);
 	}

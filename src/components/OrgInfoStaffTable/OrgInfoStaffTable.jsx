@@ -1,25 +1,17 @@
-"use client";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import Grid from "@mui/material/Grid";
-import Collapse from "@mui/material/Collapse";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import { useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
 
 export default function OrgInfoStaffTable({ orgStaff, org }) {
 	return (
 		<>
 			<TableContainer
+				component={Paper}
 				sx={{
 					width: 600,
 					overflowX: "scroll",
@@ -27,13 +19,7 @@ export default function OrgInfoStaffTable({ orgStaff, org }) {
 					scrollbarColor: "var(--bike-blue) transparent",
 				}}
 			>
-				<Table
-					size="small"
-					aria-label="simple table"
-					sx={{
-
-					}}
-				>
+				<Table size="small" aria-label="simple table" sx={{}}>
 					<TableHead>
 						<TableRow>
 							<TableCell>First Name</TableCell>
@@ -54,8 +40,6 @@ export default function OrgInfoStaffTable({ orgStaff, org }) {
 					</TableBody>
 				</Table>
 			</TableContainer>
-
-
 		</>
 	);
 }

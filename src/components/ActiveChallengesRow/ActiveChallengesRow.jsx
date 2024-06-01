@@ -75,7 +75,7 @@ export default function ActiveChallengesRow({ item }) {
 					{/* <button>do stuff</button> */}
 				</TableCell>
 			</TableRow>
-		:<><p>WHHHHYYYYY</p></>
+		:<></>
 
 	);
 }

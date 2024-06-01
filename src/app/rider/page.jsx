@@ -27,7 +27,6 @@ function Rider() {
 		<NavLayout>
 			<section className={styles.dashboardTopRow}>
 				<h1> Rider Info </h1>
-				<h1> {user.user_id} </h1>
 			</section>
 
 			<section className={styles.content}>

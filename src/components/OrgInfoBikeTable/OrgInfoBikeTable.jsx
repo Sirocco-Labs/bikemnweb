@@ -7,6 +7,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import styles from "../../app/page.module.css";
 
@@ -39,6 +40,7 @@ export default function OrgInfoBikeTable({ orgBikes, open, handleClose, org }) {
 	return (
 		<>
 			<TableContainer
+				component={Paper}
 				sx={{
 					width: 600,
 					overflowX: "scroll",
@@ -59,7 +61,7 @@ export default function OrgInfoBikeTable({ orgBikes, open, handleClose, org }) {
 								"& > :first-of-type": {
 									position: "sticky",
 									left: 0,
-									backgroundColor: "var(--bike-white)",
+									backgroundColor: "#fff",
 									zIndex: 1,
 								},
 							}}
@@ -85,8 +87,7 @@ export default function OrgInfoBikeTable({ orgBikes, open, handleClose, org }) {
 										"& > :first-of-type": {
 											position: "sticky",
 											left: 0,
-											backgroundColor:
-												"var(--bike-white)",
+											backgroundColor: "#fff",
 											zIndex: 1,
 										},
 									}}

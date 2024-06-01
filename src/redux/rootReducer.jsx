@@ -7,6 +7,7 @@ import incentives from "./slices/incentivesSlice";
 import allBikes from './slices/allBikesSlice'
 import orgs from './slices/orgSlice'
 import media from './slices/mediaUpload'
+import reward from './slices/rewardSlice'
 
 const rootReducer = combineReducers({
     user,
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
     incentives,
     allBikes,
     orgs,
-    media
+    media,
+    reward
 });
 
 export default rootReducer;

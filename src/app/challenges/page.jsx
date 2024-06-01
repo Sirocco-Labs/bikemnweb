@@ -24,12 +24,6 @@ function Challenges() {
 
 	const [value, setValue] = useState(0);
 
-	// useEffect(() => {
-	// 	dispatch(getIncentiveCategories());
-	// 	dispatch(getAllIncentives());
-	// 	dispatch(getPastIncentives());
-	// }, [dispatch]);
-
 	const TabView = (props) => {
 		const { children, value, index, ...other } = props;
 		return (
@@ -72,7 +66,6 @@ function Challenges() {
 
 	return (
 		<NavLayout>
-			<h1> Challenges </h1>
 			<Tabs
 				variant="fullWidth"
 				value={value}

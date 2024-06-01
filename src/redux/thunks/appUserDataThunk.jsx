@@ -5,7 +5,10 @@ import { setAppUsers } from "../slices/appUsersSlice";
 export const getAppUsers = () => async (dispatch) =>{
     console.log('IN APP USERS THUNK ---> getAppUsers(): ');
     try {
-        const appUsers = await supabase.from("users").select(`
+        const appUsers = await supabase
+			.from("users")
+			.select(
+				`
         *,
         screening:screening_data_junction(
             discovery_categories:how_did_you_hear(
@@ -40,7 +43,25 @@ export const getAppUsers = () => async (dispatch) =>{
             commute_rides_total
         ),
         challenges: user_incentive_tracking_junction(
+            id,
+            active_incentive_id,
+            user_id,
+            incentive_goal_value,
+            earned_points_toward_goal,
+            completion_progress,
+            has_been_met,
+            date_completed,
+            is_rewarded,
             data:active_incentive_id(
+                incentive_id,
+                is_active,
+                is_public,
+                start_date,
+                end_date,
+                created_at,
+                promo_video,
+                reward_photo,
+                reward_description,
                 details:incentive_id(
                     title,
                     description,
@@ -50,15 +71,13 @@ export const getAppUsers = () => async (dispatch) =>{
                         unit_of_measure
                     )
                 )
-            ),
-            incentive_goal_value,
-            earned_points_toward_goal,
-            completion_progress,
-            has_been_met,
-            date_completed
             )
 
-        `).order('id', {ascending:true});
+            )
+
+        `
+			)
+			.order("id", { ascending: true });
 
         if(appUsers.error){
             console.log('SUPABASE GET APP USERS ERROR: ',appUsers.error);

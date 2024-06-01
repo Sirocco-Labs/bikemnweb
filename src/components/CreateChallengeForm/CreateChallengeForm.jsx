@@ -315,7 +315,13 @@ export default function CreateChallengeForm() {
 				</Card>
 			</div>
 
-			<div style={{ width: "75%", display:'flex', flexDirection:'column' }}>
+			<div
+				style={{
+					width: "75%",
+					display: "flex",
+					flexDirection: "column",
+				}}
+			>
 				{/* <Button
 					onClick={() => {
 						console.log("CLICKED");
@@ -706,7 +712,7 @@ export default function CreateChallengeForm() {
 					disabled={validateForm()}
 					size="small"
 					variant="contained"
-					sx={{ mt: 2, p: 1.75, alignSelf:'flex-end' }}
+					sx={{ mt: 2, p: 1.75, alignSelf: "flex-end" }}
 					onClick={handleSubmit}
 				>
 					Create & Activate Challenge

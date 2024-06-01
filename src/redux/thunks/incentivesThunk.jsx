@@ -395,13 +395,24 @@ export const reactivateIncentive = (payload) => async (dispatch) => {
 		"IN INCENTIVE THUNK ---> reactivateIncentive(payload)",
 		payload
 	);
-	const { title, description, start_date, end_date, is_active } = payload;
+	const {
+		incentive_id,
+		start_date,
+		end_date,
+		is_public,
+		user_id,
+		promo_video,
+		reward_photo,
+		reward_description,
+	} = payload;
 
 	try {
 		const reactivate = await supabase
 			.from("activated_incentives_junction")
 			.insert(payload)
-			.eq("id", id);
+			.select('*')
+			.limit(1)
+			.single();
 		if (reactivate.error) {
 			console.log(
 				"SUPABASE REACTIVATE INCENTIVE ERROR",

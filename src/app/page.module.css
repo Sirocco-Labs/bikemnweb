@@ -52,6 +52,15 @@
   text-align: center;
   cursor: pointer;
 }
+.navLogout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin: 1px; */
+  /* padding: .5rem; */
+  height: 100%;
+  width: 50%;
+}
 
 .navItem {
   display: flex;
@@ -299,7 +308,6 @@
   width: 100%;
   min-height: 100%;
   margin-bottom: 1rem;
-  border-bottom: 2px solid lightgrey;
   padding: 1.5rem;
 }
 
@@ -454,4 +462,13 @@
 
 .mobileCurrentPath:focus {
   background-color: #4083b3;
+}
+
+.resourceRow{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
 }

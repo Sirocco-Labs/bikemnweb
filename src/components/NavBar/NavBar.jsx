@@ -9,9 +9,13 @@ import logo from "../../../public/iBikeMNLogo.png";
 import Collapse from "@mui/material/Collapse";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
+import { logoutUser } from "@/redux/thunks/authThunk";
+
+
 
 function useWindowSize() {
 	const [windowSize, setWindowSize] = useState({
@@ -190,6 +194,17 @@ const Navbar = () => {
 					</div>
 				</Link>
 				<DesktopNavMenu path={path} list={MENU_LIST} />
+				<div className={styles.navLogout}>
+					<Button
+						variant="contained"
+						onClick={() => {
+							dispatch(logoutUser());
+						}}
+						sx={{ pt: 1.25 }}
+					>
+						Logout
+					</Button>
+				</div>
 			</nav>
 		</header>
 	);

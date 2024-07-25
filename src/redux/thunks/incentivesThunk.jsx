@@ -7,6 +7,8 @@ import {
 
 import { setMedia } from "../slices/mediaUpload";
 
+import { uploadVideoResource, uploadPhotoResource } from "./mediaUploadThunk";
+
 import { supabase } from "@/utils/supabase/supabase";
 
 export const getIncentiveCategories = () => async (dispatch) => {
@@ -312,58 +314,8 @@ const formatName = async (name) => {
 		.slice(0, unique.lastIndexOf("."))
 		.replaceAll(/[.\s()-/*&^$#@+\[\]{}:]|[\u202F]/g, "_");
 
-	console.log("UNIQUE FORMATTED", formatted);
 	return { pretty: `${formatted}${extension}`, ending: extension };
 };
-
-// export const uploadFiles = (promo_vid) => async (dispatch) => {
-// 	console.log("VIDEO 8 FILE", promo_vid);
-// 	try {
-// 		const formatName = async (name) => {
-// 			const lastIndex = name.lastIndexOf(".");
-// 			const extension = name.substring(lastIndex);
-// 			let formatted = name
-// 				.replaceAll(".", "_")
-// 				.replaceAll("-", "_")
-// 				.replaceAll(" ", "_")
-// 				.replaceAll("\u202F", "_");
-
-// 			return `${formatted}${extension}`;
-// 		};
-// 		const videoName = await formatName(promo_vid.name);
-// 		console.log("8 FILE formatName", videoName);
-
-// 		const uploadVideo = await supabase.storage
-// 			.from("promo_content")
-// 			.upload(`videos/${videoName}`, promo_vid);
-
-// 		if (uploadVideo.error) {
-// 			console.error(
-// 				"8 FILE SUPABASE UPLOAD VIDEO ERROR",
-// 				uploadVideo.error
-// 			);
-// 		} else {
-// 			console.log(
-// 				"8 FILE SUPABASE UPLOAD VIDEO SUCCESS",
-// 				uploadVideo.status,
-// 				uploadVideo.data
-// 			);
-// 			const videoURL = supabase.storage
-// 				.from("promo_content")
-// 				.getPublicUrl(uploadVideo.data.path);
-
-// 			if (videoURL.error) {
-// 				console.error("8 FILE VIDEO URL ERROR", videoURL.error);
-// 			} else {
-// 				console.log("8 FILE VIDEO URL SUCCESS", videoURL.data);
-
-// 				dispatch(setMedia(videoURL.data.publicUrl));
-// 			}
-// 		}
-// 	} catch (error) {
-// 		console.error("8 FILE ERROR UPLOADING FILE", error);
-// 	}
-// };
 
 export const activateIncentive = (activateData) => async (dispatch) => {
 	console.log("IN INCENTIVE THUNK ---> activateIncentive(activateData)"),
@@ -405,12 +357,84 @@ export const reactivateIncentive = (payload) => async (dispatch) => {
 		reward_photo,
 		reward_description,
 	} = payload;
+	let vid_url =''
+	let photo_url =''
 
 	try {
+		if(promo_video.name){
+			console.log('PROMO VIDEO HAS A NAME BECAUSE ITS A FILE');
+			const videoName = await formatName(promo_video.name);
+			const uploadVideo = await supabase.storage
+			.from("promo_content")
+			.upload(`videos/${videoName.pretty}`, promo_video, {
+				contentType: "video/mp4",
+			});
+
+			if (uploadVideo.error) {
+				console.error("SUPABASE UPLOAD VIDEO ERROR", uploadVideo.error);
+			} else {
+				console.log(
+					"SUPABASE UPLOAD VIDEO SUCCESS",
+					uploadVideo.status,
+					uploadVideo.data
+				);
+
+				const videoURL = supabase.storage
+				.from("promo_content")
+				.getPublicUrl(uploadVideo.data.path);
+
+				if (videoURL.error) {
+					console.error("VIDEO URL ERROR", videoURL.error);
+				} else {
+					console.log(
+						"VIDEO URL SUCCESS",
+						videoURL.status,
+						videoURL.data
+					);
+
+					 vid_url = videoURL.data.publicUrl;
+				}
+			}
+
+		}
+		if(reward_photo.name){
+			console.log('REWARD PHOTO HAS A NAME BECAUSE ITS A FILE');
+			const photoName = await formatName(reward_photo.name);
+			const uploadPhoto = await supabase.storage
+				.from("promo_content")
+				.upload(`photos/${photoName.pretty}`, reward_photo);
+			if (uploadPhoto.error) {
+				console.error("SUPABASE UPLOAD PHOTO ERROR", uploadPhoto.error);
+			} else {
+				console.log(
+					"SUPABASE UPLOAD PHOTO SUCCESS",
+					uploadPhoto.status,
+					uploadPhoto.data
+				);
+				const photoURL = supabase.storage
+					.from("promo_content")
+					.getPublicUrl(uploadPhoto.data.path);
+
+				if (photoURL.error) {
+					console.error("PHOTO URL ERROR", photoURL.error);
+				} else {
+					console.log(
+						"PHOTO URL SUCCESS",
+						photoURL.status,
+						photoURL.data
+					);
+
+					 photo_url = photoURL.data.publicUrl;
+				}
+			}
+
+		}
+		let insertData = {...payload, promo_video:vid_url, reward_photo:photo_url}
+		
 		const reactivate = await supabase
 			.from("activated_incentives_junction")
-			.insert(payload)
-			.select('*')
+			.insert(insertData)
+			.select("*")
 			.limit(1)
 			.single();
 		if (reactivate.error) {

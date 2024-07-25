@@ -656,6 +656,7 @@ export default function PastChallengesRow({ item, action }) {
 						variant="contained"
 						sx={{ pt: 1.25, mt: 3, alignSelf: "flex-end" }}
 						disabled={validateSubmit()}
+						onClick={handleSubmit}
 					>
 						Reactivate
 					</Button>

@@ -6,7 +6,8 @@ import NavBar from "../components/NavBar/NavBar";
 import React, { useEffect, useState } from "react";
 
 import { ReduxProvider } from "@/redux/ReduxProvider/ReduxProvider";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { supabase } from "@/utils/supabase/supabase";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,12 +26,33 @@ Is it better to conditionally render login UI/main app based on authentication
 */
 }
 
-
 export default function RootLayout({ children }) {
+	const [loggedIn, setLoggedIn] = useState(false);
+	const getSession = async () => {
+		const { data, error } = await supabase.auth.getSession();
+		console.log(data);
+		if (data.session) {
+			setLoggedIn(true);
+		}
+	};
+	useEffect(() => {
+		getSession();
+	}, [loggedIn]);
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<ReduxProvider>{children}</ReduxProvider>
+				<div
+					style={{
+						width: "100%",
+						minHeight: "100vh",
+						background: loggedIn
+							? "#fff"
+							: "linear-gradient(#1985d2, #093459)",
+						// : "linear-gradient(#1985d2, #0c4779)",
+					}}
+				>
+					<ReduxProvider>{children}</ReduxProvider>
+				</div>
 			</body>
 		</html>
 	);

@@ -23,7 +23,7 @@ export default function Home() {
 					justifyContent: "space-between",
 					alignItems: "center",
 					width: "100%",
-					
+
 				}}
 			>
 				<div
@@ -45,7 +45,7 @@ export default function Home() {
 					<h1
 						style={{
 							color: "#fff",
-							marginLeft: ".5rem",
+							marginLeft: "1rem",
 							fontSize: "2.5rem",
 						}}
 					>
@@ -146,7 +146,7 @@ export default function Home() {
 						justifyContent: "space-between",
 						alignItems: "center",
 						width: "100%",
-						margin: "1rem",
+						marginTop: "5rem",
 					}}
 				>
 					<h2 className={styles.promoText}>

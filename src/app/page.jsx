@@ -23,6 +23,7 @@ export default function Home() {
 					justifyContent: "space-between",
 					alignItems: "center",
 					width: "100%",
+					
 				}}
 			>
 				<div
@@ -51,93 +52,93 @@ export default function Home() {
 						iBikeMN
 					</h1>
 				</div>
-				<Grid container spacing={0}
-        sx={{margin:'1rem'}}
-        >
-					<Grid item md={4} xs={12}>
-						<div className={styles.glass}>
-							<h2 className={styles.promoText}>
-								Find Your Motivation
-							</h2>
-							<Image
-								title="promo"
-								alt="promo content"
-								src={home}
-								priority={true}
-								// layout="responsive"
-								// objectFit="contain"
-								height={262}
-								width={128}
-							/>
-						</div>
-					</Grid>
-					<Grid item md={4} xs={12}>
-						<div className={styles.glass}>
-							<h2 className={styles.promoText}>
-								Track Your Rides
-							</h2>
-							<div
-								style={{
-									display: "flex",
-									flexDirection: "row",
-									flexWrap: "nowrap",
-									width: "70%",
-									justifyContent: "space-around",
-								}}
-							>
+				<div style={{ width: "100%",  display:'flex', justifyContent:'center'}}>
+					<Grid container spacing={2} sx={{ margin: "1rem 0rem"}}>
+						<Grid item md={4} xs={12}>
+							<div className={styles.glass}>
+								<h2 className={styles.promoText}>
+									Find Your Motivation
+								</h2>
 								<Image
 									title="promo"
 									alt="promo content"
-									src={ride}
+									src={home}
 									priority={true}
-									height={262}
-									width={128}
-								/>
-								<Image
-									title="promo"
-									alt="promo content"
-									src={track}
-									priority={true}
+									// layout="responsive"
+									// objectFit="contain"
 									height={262}
 									width={128}
 								/>
 							</div>
-						</div>
-					</Grid>
-					<Grid item md={4} xs={12}>
-						<div className={styles.glass}>
-							<h2 className={styles.promoText}>
-								Stay Connected!
-							</h2>
-							<div
-								style={{
-									display: "flex",
-									flexDirection: "row",
-									flexWrap: "nowrap",
-									width: "70%",
-									justifyContent: "space-around",
-								}}
-							>
-								<Image
-									title="promo"
-									alt="promo content"
-									src={fab}
-									priority={true}
-									height={262}
-									width={128}
-								/>
-								<Image
-									title="promo"
-									alt="promo content"
-									src={events}
-									priority={true}
-									height={262}
-									width={128}
-								/>
+						</Grid>
+						<Grid item md={4} xs={12}>
+							<div className={styles.glass}>
+								<h2 className={styles.promoText}>
+									Track Your Rides
+								</h2>
+								<div
+									style={{
+										display: "flex",
+										flexDirection: "row",
+										flexWrap: "nowrap",
+										width: "70%",
+										justifyContent: "space-around",
+									}}
+								>
+									<Image
+										title="promo"
+										alt="promo content"
+										src={ride}
+										priority={true}
+										height={262}
+										width={128}
+									/>
+									<Image
+										title="promo"
+										alt="promo content"
+										src={track}
+										priority={true}
+										height={262}
+										width={128}
+									/>
+								</div>
 							</div>
-						</div>
+						</Grid>
+						<Grid item md={4} xs={12}>
+							<div className={styles.glass}>
+								<h2 className={styles.promoText}>
+									Stay Connected!
+								</h2>
+								<div
+									style={{
+										display: "flex",
+										flexDirection: "row",
+										flexWrap: "nowrap",
+										width: "70%",
+										justifyContent: "space-around",
+									}}
+								>
+									<Image
+										title="promo"
+										alt="promo content"
+										src={fab}
+										priority={true}
+										height={262}
+										width={128}
+									/>
+									<Image
+										title="promo"
+										alt="promo content"
+										src={events}
+										priority={true}
+										height={262}
+										width={128}
+									/>
+								</div>
+							</div>
+						</Grid>
 					</Grid>
-				</Grid>
+				</div>
 				<section
 					style={{
 						display: "flex",
@@ -162,29 +163,26 @@ export default function Home() {
 							flexWrap: "nowrap",
 						}}
 					>
-            <div
-            className={styles.promoImage}
-            >
-						<Image
-							src={psb}
-							title="foo"
-							alt="bar"
-							priority={true}
-              layout="fill"
-              objectFit="contain"
-						/>
-
-            </div>
-            <div className={styles.promoImage}>
-						<Image
-							src={asb}
-							title="foo"
-							alt="bar"
-							priority={true}
-              layout="fill"
-              objectFit="contain"
-						/>
-            </div>
+						<div className={styles.promoImage}>
+							<Image
+								src={psb}
+								title="foo"
+								alt="bar"
+								priority={true}
+								layout="fill"
+								objectFit="contain"
+							/>
+						</div>
+						<div className={styles.promoImage}>
+							<Image
+								src={asb}
+								title="foo"
+								alt="bar"
+								priority={true}
+								layout="fill"
+								objectFit="contain"
+							/>
+						</div>
 					</div>
 				</section>
 			</section>

@@ -1,14 +1,14 @@
 "use client";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import styles from "./page.module.css";
 import NavBar from "../components/NavBar/NavBar";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 
 import { ReduxProvider } from "@/redux/ReduxProvider/ReduxProvider";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { supabase } from "@/utils/supabase/supabase";
+import { usePathname } from "next/navigation";
 
-const inter = Inter({ subsets: ["latin"] });
 
 // export const metadata = {
 //   title: "Create Next App",
@@ -25,12 +25,24 @@ Is it better to conditionally render login UI/main app based on authentication
 */
 }
 
-
 export default function RootLayout({ children }) {
+	const path = usePathname();
+	const [root, setRoot] = useState(false)
+
+	useEffect(() => {
+
+		if (path === "/" ) {
+			setRoot(true)
+		}
+	}, [path]);
+
+
 	return (
 		<html lang="en">
-			<body className={inter.className}>
-				<ReduxProvider>{children}</ReduxProvider>
+			<body>
+				<div className={root ? styles.landingBackground : styles.landing}>
+					<ReduxProvider>{children}</ReduxProvider>
+				</div>
 			</body>
 		</html>
 	);

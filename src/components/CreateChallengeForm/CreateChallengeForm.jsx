@@ -26,6 +26,8 @@ import { addNewIncentive } from "@/redux/thunks/incentivesThunk";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 
+import { getIncentiveCategories } from "@/redux/thunks/incentivesThunk";
+
 export default function CreateChallengeForm() {
 	const dispatch = useDispatch();
 	const categories = useSelector((store) => store.incentives.categories);
@@ -54,8 +56,8 @@ export default function CreateChallengeForm() {
 
 	const [form, setForm] = useState(challengeData);
 	useEffect(() => {
-		console.log("form", form);
-	}, [form]);
+		dispatch(getIncentiveCategories())
+	});
 	// useEffect(() => {
 	// 	console.log("**video", video);
 	// }, [video]);

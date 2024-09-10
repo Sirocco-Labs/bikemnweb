@@ -62,7 +62,10 @@ export default function UploadResourceContent(params) {
 	};
 
 	const handleSubmitVideoResource = () => {
-		const payload = { ...videoForm, file: video };
+		const payload = {
+			...videoForm,
+			file: video,
+		};
 		dispatch(uploadVideoResource(payload));
 
 		handleRemoveVideo();

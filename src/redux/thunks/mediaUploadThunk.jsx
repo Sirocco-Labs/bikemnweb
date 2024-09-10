@@ -21,6 +21,10 @@ const formatName = async (name) => {
 	return { pretty: `${formatted}${extension}`, ending: extension };
 };
 
+// FIND ME-- REFACTOR TO TAKE BUCKET AS AN ARGUMENT
+//  Then conditionally insert to resource table or newly activated incentive.
+
+
 export const uploadVideoResource = (videoData) => async (dispatch) => {
 	console.log(
 		"IN MEDIA THUNK ----> uploadVideoResource(videoData): ",
@@ -28,7 +32,7 @@ export const uploadVideoResource = (videoData) => async (dispatch) => {
 	);
 	const { media_url, media_format, media_title, media_caption, file } =
 		videoData;
-        
+
 	let mediaRecord = {
 		media_format,
 		media_title,
@@ -39,7 +43,7 @@ export const uploadVideoResource = (videoData) => async (dispatch) => {
 		const videoName = await formatName(file.name);
 
 		const uploadVideo = await supabase.storage
-			.from("resource_content")
+			.from('resource_content')
 			.upload(`videos/${videoName.pretty}`, file, {
 				contentType: "video/mp4",
 			});
@@ -67,7 +71,12 @@ export const uploadVideoResource = (videoData) => async (dispatch) => {
 				);
 
 				mediaRecord.media_url = videoURL.data.publicUrl;
-				dispatch(addToResourceTable(mediaRecord));
+				if (bucket === "resource_content"){
+					dispatch(addToResourceTable(mediaRecord));
+				}else{
+					return mediaRecord
+
+				}
 			}
 		}
 		// ----------------------------------------

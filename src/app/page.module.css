@@ -11,9 +11,75 @@
   padding: 2rem;
   min-height: 90vh;
   width: 100%;
-  /* background-color: aqua; */
   margin-left: 25px;
   margin-right: 25px;
+}
+
+.splash {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  min-height: 90vh;
+  width: 100%;
+}
+
+.landingBackground {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(#1985d2, #093459);
+}
+
+.landing {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.loggedOut {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.loggedIn {
+  width: 100%;
+  min-height: 100vh;
+
+}
+
+.glass {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: .25rem 0rem;
+  padding: 0.5rem 0rem;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border: 1px solid rgba(14, 70, 113, 0.2);
+}
+
+.promoImage {
+  position: relative;
+  margin: .25rem;
+  height: auto;
+  width: 200px;
+}
+
+@media only screen and (max-width: 600px) {
+  .promoImage {
+    height: auto;
+    width: 100px;
+  }
+}
+
+.promoText {
+  color: #fff;
+  margin-bottom: 1rem;
+  text-align: center;
 }
 
 .authMain {
@@ -52,6 +118,7 @@
   text-align: center;
   cursor: pointer;
 }
+
 .navLogout {
   display: flex;
   align-items: center;
@@ -464,7 +531,7 @@
   background-color: #4083b3;
 }
 
-.resourceRow{
+.resourceRow {
   display: flex;
   flex-direction: row;
   justify-content: space-between;

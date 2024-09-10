@@ -10,7 +10,6 @@ import ride from "../../public/Promo RideScreen 1.png";
 import track from "../../public/Promo Tracking 1.png";
 import psb from "../../public/PlayStoreBadge.png";
 import asb from "../../public/AppStoreBadge.png";
-// import bikemnlogo from "../../public/iBikeMNlogo.png";
 
 import Grid from "@mui/material/Grid";
 export default function Home() {

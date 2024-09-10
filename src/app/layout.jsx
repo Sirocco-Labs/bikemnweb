@@ -1,15 +1,14 @@
 "use client";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import styles from "./page.module.css";
 import NavBar from "../components/NavBar/NavBar";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 
 import { ReduxProvider } from "@/redux/ReduxProvider/ReduxProvider";
 import { useDispatch, useSelector } from "react-redux";
 import { supabase } from "@/utils/supabase/supabase";
+import { usePathname } from "next/navigation";
 
-const inter = Inter({ subsets: ["latin"] });
 
 // export const metadata = {
 //   title: "Create Next App",
@@ -27,30 +26,21 @@ Is it better to conditionally render login UI/main app based on authentication
 }
 
 export default function RootLayout({ children }) {
-	const [loggedIn, setLoggedIn] = useState(false);
-	const getSession = async () => {
-		const { data, error } = await supabase.auth.getSession();
-		console.log(data);
-		if (data.session) {
-			setLoggedIn(true);
-		}
-	};
+	const path = usePathname();
+	const [root, setRoot] = useState(false)
+
 	useEffect(() => {
-		getSession();
-	}, [loggedIn]);
+
+		if (path === "/" ) {
+			setRoot(true)
+		}
+	}, [path]);
+
+
 	return (
 		<html lang="en">
-			<body className={inter.className}>
-				<div
-					style={{
-						width: "100%",
-						minHeight: "100vh",
-						background: loggedIn
-							? "#fff"
-							: "linear-gradient(#1985d2, #093459)",
-						// : "linear-gradient(#1985d2, #0c4779)",
-					}}
-				>
+			<body>
+				<div className={root ? styles.landingBackground : styles.landing}>
 					<ReduxProvider>{children}</ReduxProvider>
 				</div>
 			</body>

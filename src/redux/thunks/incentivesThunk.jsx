@@ -199,69 +199,71 @@ export const addNewIncentive = (formData) => async (dispatch) => {
 	let reward_photo;
 
 	try {
-		const videoName = await formatName(promo_vid.name);
+		if (promo_vid) {
+			const videoName = await formatName(promo_vid.name);
 
-		const uploadVideo = await supabase.storage
-			.from("promo_content")
-			.upload(`videos/${videoName.pretty}`, promo_vid, {
-				contentType: "video/mp4",
-			});
-
-		if (uploadVideo.error) {
-			console.error("SUPABASE UPLOAD VIDEO ERROR", uploadVideo.error);
-		} else {
-			console.log(
-				"SUPABASE UPLOAD VIDEO SUCCESS",
-				uploadVideo.status,
-				uploadVideo.data
-			);
-
-			const videoURL = supabase.storage
+			const uploadVideo = await supabase.storage
 				.from("promo_content")
-				.getPublicUrl(uploadVideo.data.path);
+				.upload(`videos/${videoName.pretty}`, promo_vid, {
+					contentType: "video/mp4",
+				});
 
-			if (videoURL.error) {
-				console.error("VIDEO URL ERROR", videoURL.error);
+			if (uploadVideo.error) {
+				console.error("SUPABASE UPLOAD VIDEO ERROR", uploadVideo.error);
 			} else {
 				console.log(
-					"VIDEO URL SUCCESS",
-					videoURL.status,
-					videoURL.data
+					"SUPABASE UPLOAD VIDEO SUCCESS",
+					uploadVideo.status,
+					uploadVideo.data
 				);
 
-				promo_video = videoURL.data.publicUrl;
+				const videoURL = supabase.storage
+					.from("promo_content")
+					.getPublicUrl(uploadVideo.data.path);
+
+				if (videoURL.error) {
+					console.error("VIDEO URL ERROR", videoURL.error);
+				} else {
+					console.log(
+						"VIDEO URL SUCCESS",
+						videoURL.status,
+						videoURL.data
+					);
+
+					promo_video = videoURL.data.publicUrl;
+				}
 			}
 		}
-
-		const photoName = await formatName(reward_pic.name);
-		const uploadPhoto = await supabase.storage
-			.from("promo_content")
-			.upload(`photos/${photoName.pretty}`, reward_pic);
-		if (uploadPhoto.error) {
-			console.error("SUPABASE UPLOAD PHOTO ERROR", uploadPhoto.error);
-		} else {
-			console.log(
-				"SUPABASE UPLOAD PHOTO SUCCESS",
-				uploadPhoto.status,
-				uploadPhoto.data
-			);
-			const photoURL = supabase.storage
+		if (reward_pic) {
+			const photoName = await formatName(reward_pic.name);
+			const uploadPhoto = await supabase.storage
 				.from("promo_content")
-				.getPublicUrl(uploadPhoto.data.path);
-
-			if (photoURL.error) {
-				console.error("PHOTO URL ERROR", photoURL.error);
+				.upload(`photos/${photoName.pretty}`, reward_pic);
+			if (uploadPhoto.error) {
+				console.error("SUPABASE UPLOAD PHOTO ERROR", uploadPhoto.error);
 			} else {
 				console.log(
-					"PHOTO URL SUCCESS",
-					photoURL.status,
-					photoURL.data
+					"SUPABASE UPLOAD PHOTO SUCCESS",
+					uploadPhoto.status,
+					uploadPhoto.data
 				);
+				const photoURL = supabase.storage
+					.from("promo_content")
+					.getPublicUrl(uploadPhoto.data.path);
 
-				reward_photo = photoURL.data.publicUrl;
+				if (photoURL.error) {
+					console.error("PHOTO URL ERROR", photoURL.error);
+				} else {
+					console.log(
+						"PHOTO URL SUCCESS",
+						photoURL.status,
+						photoURL.data
+					);
+
+					reward_photo = photoURL.data.publicUrl;
+				}
 			}
 		}
-
 		const addIncentive = await supabase
 			.from("incentives")
 			.insert(toIncentives)
@@ -357,18 +359,18 @@ export const reactivateIncentive = (payload) => async (dispatch) => {
 		reward_photo,
 		reward_description,
 	} = payload;
-	let vid_url =''
-	let photo_url =''
+	let vid_url = "";
+	let photo_url = "";
 
 	try {
-		if(promo_video.name){
-			console.log('PROMO VIDEO HAS A NAME BECAUSE ITS A FILE');
+		if (promo_video) {
+			console.log("PROMO VIDEO HAS A NAME BECAUSE ITS A FILE");
 			const videoName = await formatName(promo_video.name);
 			const uploadVideo = await supabase.storage
-			.from("promo_content")
-			.upload(`videos/${videoName.pretty}`, promo_video, {
-				contentType: "video/mp4",
-			});
+				.from("promo_content")
+				.upload(`videos/${videoName.pretty}`, promo_video, {
+					contentType: "video/mp4",
+				});
 
 			if (uploadVideo.error) {
 				console.error("SUPABASE UPLOAD VIDEO ERROR", uploadVideo.error);
@@ -380,8 +382,8 @@ export const reactivateIncentive = (payload) => async (dispatch) => {
 				);
 
 				const videoURL = supabase.storage
-				.from("promo_content")
-				.getPublicUrl(uploadVideo.data.path);
+					.from("promo_content")
+					.getPublicUrl(uploadVideo.data.path);
 
 				if (videoURL.error) {
 					console.error("VIDEO URL ERROR", videoURL.error);
@@ -392,13 +394,12 @@ export const reactivateIncentive = (payload) => async (dispatch) => {
 						videoURL.data
 					);
 
-					 vid_url = videoURL.data.publicUrl;
+					vid_url = videoURL.data.publicUrl;
 				}
 			}
-
 		}
-		if(reward_photo.name){
-			console.log('REWARD PHOTO HAS A NAME BECAUSE ITS A FILE');
+		if (reward_photo) {
+			console.log("REWARD PHOTO HAS A NAME BECAUSE ITS A FILE");
 			const photoName = await formatName(reward_photo.name);
 			const uploadPhoto = await supabase.storage
 				.from("promo_content")
@@ -424,13 +425,16 @@ export const reactivateIncentive = (payload) => async (dispatch) => {
 						photoURL.data
 					);
 
-					 photo_url = photoURL.data.publicUrl;
+					photo_url = photoURL.data.publicUrl;
 				}
 			}
-
 		}
-		let insertData = {...payload, promo_video:vid_url, reward_photo:photo_url}
-		
+		let insertData = {
+			...payload,
+			promo_video: vid_url,
+			reward_photo: photo_url,
+		};
+
 		const reactivate = await supabase
 			.from("activated_incentives_junction")
 			.insert(insertData)

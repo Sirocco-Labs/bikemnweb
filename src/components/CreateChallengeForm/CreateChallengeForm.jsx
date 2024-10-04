@@ -57,7 +57,7 @@ export default function CreateChallengeForm() {
 	const [form, setForm] = useState(challengeData);
 	useEffect(() => {
 		dispatch(getIncentiveCategories())
-	});
+	},[dispatch]);
 	// useEffect(() => {
 	// 	console.log("**video", video);
 	// }, [video]);

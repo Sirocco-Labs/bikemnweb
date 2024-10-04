@@ -65,15 +65,22 @@
 .promoImage {
   position: relative;
   margin: .25rem;
-  height: auto;
+  height: 59.3px;
   width: 200px;
 }
 
+
 @media only screen and (max-width: 600px) {
   .promoImage {
-    height: auto;
+    height: 29.65px;
     width: 100px;
   }
+}
+
+.logoImage {
+  position: relative;
+  height: 50px;
+  width: 50px;
 }
 
 .promoText {
@@ -538,4 +545,24 @@
   align-items: center;
   width: 100%;
 
+}
+
+.dataBtn {
+  border: 2px solid var(--bike-blue);
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 6px 4px grey;
+
+}
+
+.dataBtn:hover {
+  cursor: pointer;
+  border: 2px solid var(--bike-orange);
+  scale: 1.05;
+  box-shadow: 5px 2px grey;
+}
+
+.dataBtn:active {
+  cursor: pointer;
+  scale: 1;
 }

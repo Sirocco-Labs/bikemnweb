@@ -77,6 +77,12 @@
   }
 }
 
+.logoImage {
+  position: relative;
+  height: 50px;
+  width: 50px;
+}
+
 .promoText {
   color: #fff;
   margin-bottom: 1rem;
@@ -555,6 +561,7 @@
   scale: 1.05;
   box-shadow: 5px 2px grey;
 }
+
 .dataBtn:active {
   cursor: pointer;
   scale: 1;

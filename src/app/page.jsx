@@ -35,14 +35,18 @@ export default function Home() {
 						flexWrap: "wrap",
 					}}
 				>
-					<Image
-						src={bikemnlogo}
-						title="logo"
-						alt="logo"
-						height={50}
-						width={50}
-						priority={true}
-					/>
+					<div className={styles.logoImage}>
+						<Image
+							src={bikemnlogo}
+							title="logo"
+							alt="iBikeMN logo"
+							// height={50}
+							// width={50}
+							priority={true}
+							fill
+							sizes="(width: 50px, height:50px)"
+						/>
+					</div>
 					<h1
 						style={{
 							color: "#fff",

@@ -10,6 +10,7 @@ import ride from "../../public/Promo RideScreen 1.png";
 import track from "../../public/Promo Tracking 1.png";
 import psb from "../../public/PlayStoreBadge.png";
 import asb from "../../public/AppStoreBadge.png";
+import bikemnlogo from "../../public/iBikeMNLogo.png";
 
 import Grid from "@mui/material/Grid";
 export default function Home() {
@@ -31,11 +32,11 @@ export default function Home() {
 						justifyContent: "space-around",
 						alignItems: "center",
 						margin: "1rem",
-						flexWrap:'wrap',
+						flexWrap: "wrap",
 					}}
 				>
 					<Image
-						src={"/iBikeMNlogo.png"}
+						src={bikemnlogo}
 						title="logo"
 						alt="logo"
 						height={50}
@@ -171,18 +172,18 @@ export default function Home() {
 					>
 						<div className={styles.promoImage}>
 							<Image
-								layout="responsive"
 								src={psb}
 								title="foo"
 								alt="bar"
 								priority={true}
-								width={200}
-								height={59.3}
-								sizes="(max-width: 200px)"
-								style={{
-									width: "100%",
-									height: "auto",
-								}}
+								fill
+								sizes="(max-width: 200px, height:59.3px)"
+								// width={200}
+								// height={59.3}
+								// style={{
+								// 	width: "100%",
+								// 	height: "auto",
+								// }}
 							/>
 						</div>
 						<div className={styles.promoImage}>
@@ -191,13 +192,8 @@ export default function Home() {
 								title="foo"
 								alt="bar"
 								priority={true}
-								width={200}
-								height={59.3}
-								sizes="(max-width: 200px)"
-								style={{
-									width: "100%",
-									height: "auto",
-								}}
+								fill
+								sizes="(max-width: 200px, height:59.3px)"
 							/>
 						</div>
 					</div>

@@ -363,7 +363,7 @@ export const reactivateIncentive = (payload) => async (dispatch) => {
 	let photo_url = "";
 
 	try {
-		if (promo_video.name) {
+		if (promo_video) {
 			console.log("PROMO VIDEO HAS A NAME BECAUSE ITS A FILE");
 			const videoName = await formatName(promo_video.name);
 			const uploadVideo = await supabase.storage
@@ -398,7 +398,7 @@ export const reactivateIncentive = (payload) => async (dispatch) => {
 				}
 			}
 		}
-		if (reward_photo.name) {
+		if (reward_photo) {
 			console.log("REWARD PHOTO HAS A NAME BECAUSE ITS A FILE");
 			const photoName = await formatName(reward_photo.name);
 			const uploadPhoto = await supabase.storage
